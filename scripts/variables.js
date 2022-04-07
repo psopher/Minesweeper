@@ -9,7 +9,7 @@ let timerStart = 0
 let timerInterval
 
 // Arrays
-const mineIndexes = [0, 8, 16]
+const mineIndexes = []
 const openedIndexes = []
 const isFlagged = []
 const cells = []
