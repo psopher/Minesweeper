@@ -92,6 +92,7 @@ function init() {
 
   function removeCells(){
     cells = []
+    grid.replaceChildren = cells
   }
 
 
