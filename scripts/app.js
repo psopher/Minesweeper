@@ -82,6 +82,7 @@ function init() {
       const cell = document.createElement('div')
       // Add cell index as the cell id 
       cell.id = i
+      cell.classList.add('unopened')
       // Add this item into the grid container
       grid.appendChild(cell)
       // Add the cell to the cells array
@@ -93,6 +94,8 @@ function init() {
     cells = []
   }
 
+
+  // Revealing and Flagging Squares 
   function revealSquare() {
     console.log('REVEAL SQUARE FIRED')
   }
@@ -105,14 +108,21 @@ function init() {
     console.log('REVEAL SURROUNDING SQUARES FIRED')
   }
 
+
+  // Handling Buttons
   function handleReset() {
     console.log('HANDLE RESET FIRED')
+  }
+
+  function setLevel() {
+    console.log('SET LEVEL FIRED')
   }
 
   function startGame() {
     console.log('START GAME FIRED')
   }
 
+  // Won and Lost
   function wonGame() {
     console.log('WON GAME FIRED')
   }
@@ -121,14 +131,12 @@ function init() {
     console.log('LOST GAME FIRED')
   }
 
-  function setLevel() {
-    console.log('SET LEVEL FIRED')
-  }
-
+  // Randomly Assigning Mine Indexes
   function assignMineIndexes() {
     console.log('ASSIGN MINE INDEXES FIRED')
   }
 
+  // Setting and Clearing the Time Interval
   function setTimerInterval() {
     console.log('SET TIMER INTERVAL FIRED')
   }

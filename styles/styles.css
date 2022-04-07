@@ -94,6 +94,7 @@ main {
 
 .expert-grid div {
   border: 1px solid lightgrey;
+
   flex-grow: 1;
   height: calc(100%/16);
   width: calc(100%/30);
@@ -121,4 +122,84 @@ main {
 .levels .level-selected{
   color: white;
   background-color: blue;
+}
+
+
+
+
+/* Revealing squares */
+.unopened {
+  background-image: url('../assets/square-unopened.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.flagged {
+  background-image: url('../assets/flagged.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.mine-unopened {
+  background-image: url('../assets/mine-unopened.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.mine-unopened {
+  background-color: red;
+}
+
+.number-0 {
+  background-image: url('../assets/number-0.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.number-1 {
+  background-image: url('../assets/number-1.png');
+  background-repeat: no-repeat;
+  background-size: contain;  
+}
+
+.number-2 {
+  background-image: url('../assets/number-2.png');
+  background-repeat: no-repeat;
+  background-size: contain;  
+}
+
+.number-3 {
+  background-image: url('../assets/number-3.png');
+  background-repeat: no-repeat;
+  background-size: contain;  
+}
+
+.number-4 {
+  background-image: url('../assets/number-4.png');
+  background-repeat: no-repeat;
+  background-size: contain;  
+}
+
+.number-5 {
+  background-image: url('../assets/number-5.png');
+  background-repeat: no-repeat;
+  background-size: contain;  
+}
+
+.number-6 {
+  background-image: url('../assets/number-6.png');
+  background-repeat: no-repeat;
+  background-size: contain;  
+}
+
+.number-7 {
+  background-image: url('../assets/number-7.png');
+  background-repeat: no-repeat;
+  background-size: contain;  
+}
+
+.number-8 {
+  background-image: url('../assets/number-8.png');
+  background-repeat: no-repeat;
+  background-size: contain;  
 }
