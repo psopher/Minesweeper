@@ -4,7 +4,7 @@ function init() {
   // ? Link in other script files
 
   const jsFiles = ['variables', 'elements', 'snippets', 'executions', 'events', 'default-setup']
-  
+
   function include(filename){
       var head = document.getElementsByTagName('head')[0]
 
@@ -16,7 +16,9 @@ function init() {
   }
   
   for (let i = 0; i < jsFiles.length; i++) {
-    include(jsFiles[i])
+    setTimeout(function timer() {
+      include(jsFiles[i])
+    }, i * 10)
   }
 
 }

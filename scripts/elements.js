@@ -12,3 +12,6 @@ const resetBtn = document.querySelector('#reset')
 const beginnerBtn = document.querySelector('#beginner')
 const intermediateBtn = document.querySelector('#intermediate')
 const expertBtn = document.querySelector('#expert')
+
+
+

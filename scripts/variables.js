@@ -2,19 +2,21 @@ console.log('Variables Included!')
 
 // Numbers
 let level = 1 // 1 is beginner level, 2 is intermediate, 3 is expert
+let levelString = 'beginner'
 let timerStart = 0
 
 // Intervals
 let timerInterval
 
 // Arrays
-const mineIndexes = []
+const mineIndexes = [0, 8, 16]
 const openedIndexes = []
 const isFlagged = []
 const cells = []
 
 // Objects
-const levelRules = {
+const levelRules = 
+{
   beginner: {
     mineCount: 10,
     width: 8,
@@ -34,3 +36,4 @@ const levelRules = {
     cellCount: 480
   }
 }
+

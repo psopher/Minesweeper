@@ -1,4 +1,4 @@
 console.log('Default Setup Included!')
 
-  //Create the grid
-  createGrid()
+//Create the grid
+createGrid()
