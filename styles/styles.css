@@ -1,1 +1,124 @@
-/* Testing */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  text-align: center;
+  font-family: 'Orbitron', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  margin-bottom: -10px;
+  font-size: 24px;
+}
+
+#container {
+  width: 800px;
+  height: 650px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 4px solid black;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f3f3;
+  border: 2px solid black;
+}
+
+#scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.beginner-scoreboard, .intermediate-scoreboard {
+  width: 400px;
+}
+
+.expert-scoreboard {
+  width: 700px;
+}
+
+#scoreboard button{
+  height: 25px;
+  width: 25px;
+  background-image: url('../assets/smiley-face.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+}
+
+#grid {
+  display: flex;
+  align-items: center;
+  /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-top: 2px solid black;
+  height: 400px;
+}
+
+.beginner-grid, .intermediate-grid {
+  width: 400px;
+}
+
+.expert-grid {
+  width: 750px;
+}
+
+.beginner-grid div {
+  border: 1px solid lightgrey;
+  flex-grow: 1;
+  height: calc(100%/8);
+  width: calc(100%/8);
+}
+
+.intermediate-grid div {
+  border: 1px solid lightgrey;
+  flex-grow: 1;
+  height: calc(100%/16);
+  width: calc(100%/16);
+}
+
+.expert-grid div {
+  border: 1px solid lightgrey;
+  flex-grow: 1;
+  height: calc(100%/16);
+  width: calc(100%/30);
+}
+
+.levels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+}
+
+.levels button {
+  font-family: 'Orbitron', Arial, sans-serif;
+  color: black;
+  background-color: white;
+  width: 120px;
+  border: 1px solid black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+
+.levels .level-selected{
+  color: white;
+  background-color: blue;
+}
