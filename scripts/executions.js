@@ -64,6 +64,7 @@ function wonGame() {
   gameFinished = true
   clearTimerInterval()
 
+  resetBtn.className = ''
   resetBtn.classList.add('won-game')
 }
 
@@ -179,24 +180,25 @@ function setLevel(event) {
       scoreboardDiv.classList.add('expert-scoreboard')
     }
 
-    clearTimerInterval()
-    resetTimer()
-    grid.replaceChildren()
-    mineIndexes = []
-    openedIndexes = []
-    isFlagged = []
-    cells = []
-    gameFinished = false
-    createGrid()
+    handleReset()
   }
 }
 
 function handleReset() {
   console.log('HANDLE RESET FIRED')
 
+  resetBtn.className = ''
+  resetBtn.classList.add('not-won')
 
-
+  clearTimerInterval()
+  resetTimer()
+  grid.replaceChildren()
+  mineIndexes = []
+  openedIndexes = []
+  isFlagged = []
+  cells = []
   gameFinished = false
+  createGrid()
 }
 
 

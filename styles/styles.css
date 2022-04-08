@@ -56,11 +56,17 @@ main {
 #scoreboard button{
   height: 25px;
   width: 25px;
+  /* background-image: url('../assets/smiley-face.png');
+  background-repeat: no-repeat;
+  background-size: contain; */
+  cursor: pointer;
+  border: none;
+}
+
+.not-won {
   background-image: url('../assets/smiley-face.png');
   background-repeat: no-repeat;
   background-size: contain;
-  cursor: pointer;
-  border: none;
 }
 
 .won-game {
