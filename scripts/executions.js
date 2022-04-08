@@ -3,7 +3,8 @@ console.log('Executions Included!')
 
 function createGrid() {
   console.log('CREATE GRID FIRED')
-  
+  gameFinished = false
+
   getLevelString()
   for (let i = 0; i < levelRules[levelString].cellCount; i++) {
     const cell = document.createElement('div')
@@ -29,39 +30,21 @@ function createGrid() {
 function openNewSquare(index = -1) {
   if (-1 < index < levelRules[levelString].cellCount && !openedIndexes.includes(index)) {
     
-    const indexesSurrounding = getSurroundingIndexes(index)
+    // const indexesSurrounding = getSurroundingIndexes(index)
+    const indexOnObj = allIndexValuesObj[index]
+    const indexesSurrounding = indexOnObj.neighborIndexes
     const unopenSurrounding = unopenedSurroundingIndexes(indexesSurrounding)
     
     let minesSurrounding = 0
 
-    if (!mineIndexes.includes(index)) {
-      
-      //Check for number of mines surrounding the clicked index
-      for (let i = 0; i < indexesSurrounding.length; i++) {
-        const squareID = parseFloat(indexesSurrounding[i])
-        console.log(squareID)
-        if (mineIndexes.includes(squareID)) {
-          minesSurrounding++
-        }
-      }
+    cells[index].classList.add(indexOnObj.revealValue)
 
-      //Update the DOM
-      console.log('index', index)
-      console.log('indexesSurrounding', indexesSurrounding)
-      console.log('minesSurrounding', minesSurrounding)
-      cells[index].classList.add(`number-${minesSurrounding}`)
-    } else {
-      //Update the DOM
-      console.log('index', index)
-      cells[index].classList.add('mine-unopened')
-    }
-
-    // Add index to the openedIndexes array
     openedIndexes.push(index)
-    console.log(openedIndexes)
 
     // If value is 0, open all surrounding squares, ad infinitum
-    if (minesSurrounding === 0 && unopenSurrounding.length > 0 && !gameFinished) {
+    if (indexOnObj.revealNumber === 0 && unopenSurrounding.length > 0 && !gameFinished) {
+      console.log('Method Fires')
+
       for (let i = 0; i < unopenSurrounding.length; i++) {
         openNewSquare(unopenSurrounding[i])
       }
@@ -91,10 +74,10 @@ function lostGame() {
 }
 
 // Start Game
-function startGame() {
+function startGame(index = -1) {
   console.log('START GAME FIRED')
 
-  assignMineIndexes()
+  assignMineIndexes(index)
 
   setTimerInterval()
 }
@@ -108,7 +91,7 @@ function revealSquare(event) {
   if (!openedIndexes.includes(selectedIndex) && !isFlagged.includes(selectedIndex) && !mineIndexes.includes(selectedIndex)) {
 
     if (openedIndexes.length === 0) {
-      startGame()
+      startGame(selectedIndex)
     } 
 
     openNewSquare(selectedIndex)
@@ -130,8 +113,47 @@ function flagSquare() {
 
 
 // Handling Buttons Events
-function setLevel() {
+function setLevel(event) {
   console.log('SET LEVEL FIRED')
+  console.log('set level innerHTML',event.target.innerHTML.toLowerCase())
+
+  if (levelString !== event.target.innerHTML.toLowerCase()) {
+
+    levelString = event.target.innerHTML.toLowerCase()
+
+    beginnerBtn.className = ''
+    intermediateBtn.className = ''
+    expertBtn.className = ''
+    grid.className = ''
+    scoreboardDiv.className = ''
+
+    if (levelString === 'beginner') {
+      level = 1
+      beginnerBtn.classList.add('level-selected')
+      grid.classList.add('beginner-grid')
+      scoreboardDiv.classList.add('beginner-scoreboard')
+    } else if (levelString === 'intermediate') {
+      level = 2
+      intermediateBtn.classList.add('level-selected')
+      grid.classList.add('intermediate-grid')
+      scoreboardDiv.classList.add('intermediate-scoreboard')
+    } else {
+      level = 3
+      expertBtn.classList.add('level-selected')
+      grid.classList.add('expert-grid')
+      scoreboardDiv.classList.add('expert-scoreboard')
+    }
+
+    clearTimerInterval()
+    resetTimer()
+    grid.replaceChildren()
+    mineIndexes = []
+    openedIndexes = []
+    isFlagged = []
+    cells = []
+    gameFinished = false
+    createGrid()
+  }
 }
 
 function handleReset() {

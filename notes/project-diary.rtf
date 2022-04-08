@@ -72,6 +72,9 @@
 \pard\tx940\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li1440\fi-1440\pardirnatural\partightenfactor0
 \ls2\ilvl1\cf0 {\listtext	\uc0\u8259 	}Looked through the wireframe to see what has been done and what still needs to be done in JS and made an \'93order of operations\'94 guide for myself\
 {\listtext	\uc0\u8259 	}Did the morning round-up with the group\
+{\listtext	\uc0\u8259 	}Got the levels to change and grid to update when levels button is pressed\
+{\listtext	\uc0\u8259 	}assigned mine indexes randomly and set the timer interval whenever the first square is clicked to start the game\
+{\listtext	\uc0\u8259 	}Realized that code was slow and would be faster if I had the details for each index value in an object variable rather than doing so many loops, so I refactored code along those lines\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
 \
@@ -85,11 +88,19 @@ Order of operations\
 \f1\b {\listtext	\uc0\u8226 	}set timer interval\
 {\listtext	\uc0\u8226 	}clear timer interval
 \f0\b0 \
-{\listtext	\uc0\u8226 	}startGame\
-{\listtext	\uc0\u8226 	}set level\
+\ls3\ilvl0
+\f1\b {\listtext	\uc0\u8226 	}startGame
+\f0\b0 \
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural\partightenfactor0
+\ls3\ilvl0
+\f1\b \cf0 {\listtext	\uc0\u8226 	}lost Game
+\f0\b0 \
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural\partightenfactor0
+\ls3\ilvl0\cf0 {\listtext	
+\f1\b \uc0\u8226 	}set level
+\f0\b0 \
 {\listtext	\uc0\u8226 	}flag square\
 {\listtext	\uc0\u8226 	}handleReset\
-{\listtext	\uc0\u8226 	}lost Game\
 {\listtext	\uc0\u8226 	}won Game\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \

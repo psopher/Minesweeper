@@ -22,20 +22,69 @@ function removeCells(){
 }
 
 
+// Get all index values and populate object
+function getAllIndexValues() {
+
+  console.log('GET ALL INDEX VALUES FIRED')
+
+  let indexesObj = {}
+
+  for (let index = 0; index < levelRules[levelString].cellCount; index++) {
+    
+    const indexesSurrounding = getSurroundingIndexes(index)
+    let minesSurrounding = 0
+    let indexObj = {}
+
+    if (!mineIndexes.includes(index)) {
+      indexObj.isMine = false
+      
+      //Check for number of mines surrounding the clicked index
+      for (let i = 0; i < indexesSurrounding.length; i++) {
+        const squareID = parseFloat(indexesSurrounding[i])
+        if (mineIndexes.includes(squareID)) {
+          minesSurrounding++
+        }
+      }
+
+      indexObj.revealValue = `number-${minesSurrounding}`
+      indexObj.revealNumber = minesSurrounding
+    } else {
+      indexObj.isMine = true
+      indexObj.revealValue = 'mine-unopened'
+      indexObj.revealNumber = -1
+    }
+
+    indexObj.isOpened = openedIndexes.includes(index) ? true : false
+    indexObj.flag = isFlagged.includes(index) ? true : false
+
+    indexObj.neighborIndexes = getSurroundingIndexes(index)
+
+    indexesObj[index] = indexObj
+  }
+
+  allIndexValuesObj = indexesObj
+  console.log(allIndexValuesObj)
+}
+
+
 // Getting indexes of the 8 surrounding squares
 function getSurroundingIndexes(index = -1) {
   const width = levelRules[levelString].width
+  const height = levelRules[levelString].height
   const cellCount = levelRules[levelString].cellCount
+  console.log('index is ->', index)
+  console.log('cellCount is ->', cellCount)
+  console.log('width is ->', width)
 
   const isTopRow = index < width && index >= 0 ? true : false
   const isLeftColumn = index % width === 0 ? true : false
   const isRightColumn = index % width === width - 1 ? true : false
-  const isBottomRow = index >= width*(width-1) ? true : false
+  const isBottomRow = index >= width*(height-1)  ? true : false
 
-  console.log('is it top row?', isTopRow)
-  console.log('is it bottom row?', isBottomRow)
-  console.log('is it left column?', isLeftColumn)
-  console.log('is it right column?', isRightColumn)
+  console.log('isBottom row ->', isBottomRow)
+  console.log('isTop row ->', isTopRow)
+  console.log('isLeft column ->', isLeftColumn)
+  console.log('isRight column ->', isRightColumn)
 
   let indexesArray = []
 
@@ -68,7 +117,10 @@ function unopenedSurroundingIndexes (indexesArr = []) {
   const unopenedArray = []
 
   for (let i = 0; i < indexesArr.length; i++) {
-    if (!mineIndexes.includes(indexesArr[i])) {
+    // if (!mineIndexes.includes(indexesArr[i])) {
+    let objIndex = indexesArr[i]
+
+    if (!allIndexValuesObj[objIndex].isMine && !openedIndexes.includes(indexesArr[i])) {
       unopenedArray.push(indexesArr[i])
     }
   }
@@ -93,7 +145,7 @@ function revealAllUnopened () {
 
 
 // Randomly Assigning Mine Indexes
-function assignMineIndexes() {
+function assignMineIndexes(index = -1) {
   console.log('ASSIGN MINE INDEXES FIRED')
   
   // Clear mine indexes array
@@ -102,24 +154,19 @@ function assignMineIndexes() {
   // Set an incrementor
   let numberOfMinesInArray = 0
 
-  console.log('mine count goal ->',levelRules[levelString].mineCount)
   while (numberOfMinesInArray < levelRules[levelString].mineCount) {
     
     // create a random index between zero and number-of-mines-minus-1
     let newIndex = Math.floor(Math.random() * levelRules[levelString].cellCount)
-    console.log(newIndex)
 
-    if (!mineIndexes.includes(newIndex)) {
+    if (!mineIndexes.includes(newIndex) && newIndex !== index) {
       mineIndexes.push(newIndex)
       numberOfMinesInArray++
     }
 
-    console.log(mineIndexes.length)
-
   }
 
-  console.log(mineIndexes)
-
+  getAllIndexValues()
 }
 
 // Setting and Clearing the Time Interval
@@ -131,7 +178,9 @@ function resetTimer () {
 
 function clearTimerInterval() {
   console.log('CLEAR TIMER INTERVAL FIRED')
-  clearInterval(timerInterval)
+  if (timerInterval) {
+    clearInterval(timerInterval)
+  }
 }
 
 
@@ -140,11 +189,9 @@ function setTimerInterval() {
   
   function timerCount() {
     if (0 <= timerStart < 1000) {
-      console.log('timer interval really started')
       timerStart++
       timer.innerHTML = timerStart
     } else {
-      console.log('timer interval cleared from start')
       clearTimerInterval()
     }  
   }

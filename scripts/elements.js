@@ -13,5 +13,8 @@ const beginnerBtn = document.querySelector('#beginner')
 const intermediateBtn = document.querySelector('#intermediate')
 const expertBtn = document.querySelector('#expert')
 
+//HTML Elements
+const scoreboardDiv = document.querySelector('#scoreboard')
+
 
 

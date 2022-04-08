@@ -13,11 +13,13 @@ let gameFinished = false
 
 // Arrays
 let mineIndexes = []
-const openedIndexes = []
-const isFlagged = []
-const cells = []
+let openedIndexes = []
+let isFlagged = []
+let cells = []
 
 // Objects
+let allIndexValuesObj = {}
+
 const levelRules = 
 {
   beginner: {
@@ -39,4 +41,3 @@ const levelRules =
     cellCount: 480
   }
 }
-
