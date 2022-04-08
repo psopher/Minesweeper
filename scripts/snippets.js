@@ -54,9 +54,6 @@ function getAllIndexValues() {
       indexObj.revealNumber = -1
     }
 
-    indexObj.isOpened = openedIndexes.includes(index) ? true : false
-    indexObj.flag = isFlagged.includes(index) ? true : false
-
     indexObj.neighborIndexes = getSurroundingIndexes(index)
 
     indexesObj[index] = indexObj

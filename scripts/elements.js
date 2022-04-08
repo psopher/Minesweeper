@@ -5,7 +5,7 @@ const grid = document.querySelector('#grid')
 
 // Counts
 const timer = document.querySelector('#timer')
-const minesRemaining = document.querySelector('mines-remaining')
+const minesRemaining = document.querySelector('#mines-remaining')
 
 // Buttons
 const resetBtn = document.querySelector('#reset')

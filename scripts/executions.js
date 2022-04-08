@@ -28,7 +28,7 @@ function createGrid() {
 
 // Open new square
 function openNewSquare(index = -1) {
-  if (-1 < index < levelRules[levelString].cellCount && !openedIndexes.includes(index)) {
+  if (-1 < index < levelRules[levelString].cellCount && !openedIndexes.includes(index) && !isFlagged.includes(index)) {
     
     // const indexesSurrounding = getSurroundingIndexes(index)
     const indexOnObj = allIndexValuesObj[index]
@@ -107,8 +107,43 @@ function revealSquare(event) {
 
 }
 
-function flagSquare() {
+function flagSquare(event) {
   console.log('FLAG SQUARE FIRED')
+  
+  const index = parseFloat(event.target.id)
+
+  let minesRemainingCount = parseFloat(levelRules[levelString].mineCount - isFlagged.length)
+
+  if (index >= 0 && index < levelRules[levelString].cellCount && !openedIndexes.includes(index) && !gameFinished) {
+
+    cells[index].className = ''
+
+    if (!isFlagged.includes(index)) {
+      cells[index].classList.add('flagged')
+      isFlagged.push(index)
+
+      if (minesRemainingCount > 0) {
+        minesRemainingCount--
+        minesRemaining.innerHTML = `${minesRemainingCount}`
+      }
+
+    } else {
+      cells[index].classList.add('unopened')
+
+      const indexOnIsFlagged = isFlagged.indexOf(index)
+      isFlagged.splice(indexOnIsFlagged, 1)
+
+      if (minesRemainingCount < levelRules[levelString].mineCount) {
+        minesRemainingCount++
+        minesRemaining.innerHTML = `${minesRemainingCount}`
+      }
+
+
+    }
+
+  }
+
+  console.log('flagged array', isFlagged)
 }
 
 
