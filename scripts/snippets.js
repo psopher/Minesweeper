@@ -77,17 +77,79 @@ function unopenedSurroundingIndexes (indexesArr = []) {
 }
 
 
+// Reveal all unopened indexes 
+function revealAllUnopened () {
+  
+  let allUnopenedIndexesArray = []
+  
+  for (let i = 0; i < levelRules[levelString].cellCount; i++) {
+    if (!openedIndexes.includes(cells[i])) {
+      allUnopenedIndexesArray.push(i)
+    }
+  }
+
+  return allUnopenedIndexesArray
+}
+
+
 // Randomly Assigning Mine Indexes
 function assignMineIndexes() {
   console.log('ASSIGN MINE INDEXES FIRED')
+  
+  // Clear mine indexes array
+  mineIndexes = []
+
+  // Set an incrementor
+  let numberOfMinesInArray = 0
+
+  console.log('mine count goal ->',levelRules[levelString].mineCount)
+  while (numberOfMinesInArray < levelRules[levelString].mineCount) {
+    
+    // create a random index between zero and number-of-mines-minus-1
+    let newIndex = Math.floor(Math.random() * levelRules[levelString].cellCount)
+    console.log(newIndex)
+
+    if (!mineIndexes.includes(newIndex)) {
+      mineIndexes.push(newIndex)
+      numberOfMinesInArray++
+    }
+
+    console.log(mineIndexes.length)
+
+  }
+
+  console.log(mineIndexes)
+
 }
 
 // Setting and Clearing the Time Interval
-function setTimerInterval() {
-  console.log('SET TIMER INTERVAL FIRED')
+
+function resetTimer () {
+  timerStart = 0
+  timer.innerHTML = timerStart
 }
 
 function clearTimerInterval() {
   console.log('CLEAR TIMER INTERVAL FIRED')
+  clearInterval(timerInterval)
+}
+
+
+function setTimerInterval() {
+  console.log('SET TIMER INTERVAL FIRED')
+  
+  function timerCount() {
+    if (0 <= timerStart < 1000) {
+      console.log('timer interval really started')
+      timerStart++
+      timer.innerHTML = timerStart
+    } else {
+      console.log('timer interval cleared from start')
+      clearTimerInterval()
+    }  
+  }
+
+  timerInterval = setInterval(timerCount, 1000)
+
 }
 

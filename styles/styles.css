@@ -15,6 +15,10 @@ h1 {
   font-size: 24px;
 }
 
+h3 {
+  width: 70px;
+}
+
 #container {
   width: 800px;
   height: 650px;
@@ -57,6 +61,12 @@ main {
   background-size: contain;
   cursor: pointer;
   border: none;
+}
+
+.won-game {
+  background-image: url('../assets/sunglasses-face-2.png');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 #grid {

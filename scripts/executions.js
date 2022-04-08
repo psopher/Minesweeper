@@ -28,39 +28,78 @@ function createGrid() {
 // Open new square
 function openNewSquare(index = -1) {
   if (-1 < index < levelRules[levelString].cellCount && !openedIndexes.includes(index)) {
-    let minesSurrounding = 0
+    
     const indexesSurrounding = getSurroundingIndexes(index)
     const unopenSurrounding = unopenedSurroundingIndexes(indexesSurrounding)
     
-    //Check for number of mines surrounding the clicked index
-    for (let i = 0; i < indexesSurrounding.length; i++) {
-      const squareID = parseFloat(indexesSurrounding[i])
-      console.log(squareID)
-      if (mineIndexes.includes(squareID)) {
-        minesSurrounding++
-      }
-    }
+    let minesSurrounding = 0
 
-    //Update the DOM
-    console.log('index', index)
-    console.log('indexesSurrounding', indexesSurrounding)
-    console.log('minesSurrounding', minesSurrounding)
-    cells[index].classList.add(`number-${minesSurrounding}`)
-    
+    if (!mineIndexes.includes(index)) {
+      
+      //Check for number of mines surrounding the clicked index
+      for (let i = 0; i < indexesSurrounding.length; i++) {
+        const squareID = parseFloat(indexesSurrounding[i])
+        console.log(squareID)
+        if (mineIndexes.includes(squareID)) {
+          minesSurrounding++
+        }
+      }
+
+      //Update the DOM
+      console.log('index', index)
+      console.log('indexesSurrounding', indexesSurrounding)
+      console.log('minesSurrounding', minesSurrounding)
+      cells[index].classList.add(`number-${minesSurrounding}`)
+    } else {
+      //Update the DOM
+      console.log('index', index)
+      cells[index].classList.add('mine-unopened')
+    }
 
     // Add index to the openedIndexes array
     openedIndexes.push(index)
     console.log(openedIndexes)
 
     // If value is 0, open all surrounding squares, ad infinitum
-    if (minesSurrounding === 0 && unopenSurrounding.length > 0) {
+    if (minesSurrounding === 0 && unopenSurrounding.length > 0 && !gameFinished) {
       for (let i = 0; i < unopenSurrounding.length; i++) {
         openNewSquare(unopenSurrounding[i])
+      }
+    } else if (gameFinished) {
+      let allUnopenedArray = revealAllUnopened()
+
+      for (let i = 0; i < allUnopenedArray.length; i++) {
+        openNewSquare(allUnopenedArray[i])
       }
     }
   }
 }
 
+// Won and Lost
+function wonGame() {
+  console.log('WON GAME FIRED')
+  gameFinished = true
+  clearTimerInterval()
+
+  resetBtn.classList.add('won-game')
+}
+
+function lostGame() {
+  console.log('LOST GAME FIRED')
+  gameFinished = true
+  clearTimerInterval()
+}
+
+// Start Game
+function startGame() {
+  console.log('START GAME FIRED')
+
+  assignMineIndexes()
+
+  setTimerInterval()
+}
+
+//Reveal Square click event
 function revealSquare(event) {
   console.log('REVEAL SQUARE FIRED ->', event.target.id)
 
@@ -79,6 +118,8 @@ function revealSquare(event) {
     }
   } else if (!openedIndexes.includes(selectedIndex) && !isFlagged.includes(selectedIndex) && mineIndexes.includes(selectedIndex)) {
     lostGame()
+
+    openNewSquare(selectedIndex)
   }
 
 }
@@ -88,26 +129,17 @@ function flagSquare() {
 }
 
 
-// Handling Buttons
-function handleReset() {
-  console.log('HANDLE RESET FIRED')
-}
-
+// Handling Buttons Events
 function setLevel() {
   console.log('SET LEVEL FIRED')
 }
 
-function startGame() {
-  console.log('START GAME FIRED')
-}
+function handleReset() {
+  console.log('HANDLE RESET FIRED')
 
-// Won and Lost
-function wonGame() {
-  console.log('WON GAME FIRED')
-}
 
-function lostGame() {
-  console.log('LOST GAME FIRED')
+
+  gameFinished = false
 }
 
 

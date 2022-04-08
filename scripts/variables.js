@@ -8,8 +8,11 @@ let timerStart = 0
 // Intervals
 let timerInterval
 
+// Bools
+let gameFinished = false
+
 // Arrays
-const mineIndexes = []
+let mineIndexes = []
 const openedIndexes = []
 const isFlagged = []
 const cells = []
