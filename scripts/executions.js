@@ -28,10 +28,9 @@ function createGrid() {
 
 // Open new square
 function openNewSquare(index = -1) {
-  if (-1 < index < levelRules[levelString].cellCount && !openedIndexes.includes(index) && !isFlagged.includes(index)) {
-    
-    // const indexesSurrounding = getSurroundingIndexes(index)
+  if (-1 < index < levelRules[levelString].cellCount && !allIndexValuesObj[index].opened && !allIndexValuesObj[index].hasFlag) {  
     const indexOnObj = allIndexValuesObj[index]
+    indexOnObj.opened = true
     const indexesSurrounding = indexOnObj.neighborIndexes
     const unopenSurrounding = unopenedSurroundingIndexes(indexesSurrounding)
     
@@ -43,7 +42,6 @@ function openNewSquare(index = -1) {
 
     // If value is 0, open all surrounding squares, ad infinitum
     if (indexOnObj.revealNumber === 0 && unopenSurrounding.length > 0 && !gameFinished) {
-      console.log('Method Fires')
 
       for (let i = 0; i < unopenSurrounding.length; i++) {
         openNewSquare(unopenSurrounding[i])
@@ -64,7 +62,7 @@ function wonGame() {
   gameFinished = true
   clearTimerInterval()
   
-  flagRemainingSquares ()
+  flagRemainingSquares()
 
   resetBtn.className = ''
   resetBtn.classList.add('won-game')
@@ -92,7 +90,6 @@ function revealSquare(event) {
   const selectedIndex = parseFloat(event.target.id)
 
   if (!openedIndexes.includes(selectedIndex) && !isFlagged.includes(selectedIndex) && !mineIndexes.includes(selectedIndex)) {
-
     if (openedIndexes.length === 0) {
       startGame(selectedIndex)
     } 
@@ -102,7 +99,7 @@ function revealSquare(event) {
     if (openedIndexes.length === levelRules[levelString].cellCount - levelRules[levelString].mineCount) {
       wonGame()
     }
-  } else if (!openedIndexes.includes(selectedIndex) && !isFlagged.includes(selectedIndex) && mineIndexes.includes(selectedIndex)) {
+  } else if (!allIndexValuesObj[selectedIndex].opened && !allIndexValuesObj[selectedIndex].hasFlag && allIndexValuesObj[selectedIndex].isMine) {
     lostGame()
 
     openNewSquare(selectedIndex)
@@ -117,13 +114,16 @@ function flagSquare(event) {
 
   let minesRemainingCount = parseFloat(levelRules[levelString].mineCount - isFlagged.length)
 
-  if (index >= 0 && index < levelRules[levelString].cellCount && !openedIndexes.includes(index) && !gameFinished) {
-
+  if (index >= 0 && index < levelRules[levelString].cellCount && !allIndexValuesObj[index].opened && !gameFinished) {
+    
     cells[index].className = ''
 
-    if (!isFlagged.includes(index)) {
+    if (!allIndexValuesObj[index].hasFlag) {  
+      
       cells[index].classList.add('flagged')
       isFlagged.push(index)
+
+      allIndexValuesObj[index].hasFlag = true
 
       if (minesRemainingCount > 0) {
         minesRemainingCount--
@@ -136,17 +136,14 @@ function flagSquare(event) {
       const indexOnIsFlagged = isFlagged.indexOf(index)
       isFlagged.splice(indexOnIsFlagged, 1)
 
+      allIndexValuesObj[index].hasFlag = false
+
       if (minesRemainingCount < levelRules[levelString].mineCount) {
         minesRemainingCount++
         minesRemaining.innerHTML = `${minesRemainingCount}`
       }
-
-
     }
-
   }
-
-  console.log('flagged array', isFlagged)
 }
 
 
@@ -191,6 +188,8 @@ function handleReset() {
 
   resetBtn.className = ''
   resetBtn.classList.add('not-won')
+
+  minesRemaining.innerHTML = levelRules[levelString].mineCount
 
   clearTimerInterval()
   resetTimer()

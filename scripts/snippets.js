@@ -1,7 +1,7 @@
 console.log('Snippets Included!')
 
 
-// Code snippet that makes checking which level it is more DRY
+// Code snippet for checking which level it is
 function getLevelString() {
   console.log('getGridType FIRED')
   if (level === 1) {
@@ -13,12 +13,6 @@ function getLevelString() {
   } else {
     console.log(`Level: ${level} doesnt exist`)
   }
-}
-
-// Clears cells from the grid
-function removeCells(){
-  cells = []
-  grid.replaceChildren = cells
 }
 
 
@@ -55,12 +49,15 @@ function getAllIndexValues() {
     }
 
     indexObj.neighborIndexes = getSurroundingIndexes(index)
+    
+    indexObj.opened = false
+    indexObj.hasFlag = false
 
     indexesObj[index] = indexObj
+
   }
 
   allIndexValuesObj = indexesObj
-  console.log(allIndexValuesObj)
 }
 
 
@@ -69,39 +66,31 @@ function getSurroundingIndexes(index = -1) {
   const width = levelRules[levelString].width
   const height = levelRules[levelString].height
   const cellCount = levelRules[levelString].cellCount
-  console.log('index is ->', index)
-  console.log('cellCount is ->', cellCount)
-  console.log('width is ->', width)
 
   const isTopRow = index < width && index >= 0 ? true : false
   const isLeftColumn = index % width === 0 ? true : false
   const isRightColumn = index % width === width - 1 ? true : false
   const isBottomRow = index >= width*(height-1)  ? true : false
 
-  console.log('isBottom row ->', isBottomRow)
-  console.log('isTop row ->', isTopRow)
-  console.log('isLeft column ->', isLeftColumn)
-  console.log('isRight column ->', isRightColumn)
-
   let indexesArray = []
 
-  if (!isTopRow && !isLeftColumn && !isRightColumn && !isBottomRow) {
+  if (!isTopRow && !isLeftColumn && !isRightColumn && !isBottomRow) { // Interior Cells
     indexesArray = [index-width-1, index-width, index-width+1, index-1, index+1, index+width-1, index+width, index+width+1]
-  } else if (isTopRow && isLeftColumn) {
+  } else if (isTopRow && isLeftColumn) { // Top Left Corner
     indexesArray = [index+1, index+width, index+width+1]
-  } else if (isTopRow && isRightColumn) {
+  } else if (isTopRow && isRightColumn) { // Top Right Corner
     indexesArray = [index-1, index+width-1, index+width]
-  } else if (isBottomRow && isLeftColumn) {
+  } else if (isBottomRow && isLeftColumn) { // Bottom Left Corner
     indexesArray = [index-width, index-width+1, index+1]
-  } else if (isBottomRow && isRightColumn) {
+  } else if (isBottomRow && isRightColumn) { // Bottom Right Corner
     indexesArray = [index-width-1, index-width, index-1]
-  } else if (isTopRow) {
+  } else if (isTopRow) { // Top Row, Except Corners
     indexesArray = [index-1, index+1, index+width-1, index+width, index+width+1]
-  } else if (isLeftColumn) {
+  } else if (isLeftColumn) { // Left Column, Except Corners
     indexesArray = [index-width, index-width+1, index+1, index+width, index+width+1]
-  } else if (isRightColumn) {
+  } else if (isRightColumn) { // Right Column, Except Corners
     indexesArray = [index-width-1, index-width, index-1, index+width-1, index+width]
-  } else {
+  } else { // Bottom Row, Except Corners
     indexesArray = [index-width-1, index-width, index-width+1, index-1, index+1]
   }
   
@@ -114,10 +103,9 @@ function unopenedSurroundingIndexes (indexesArr = []) {
   const unopenedArray = []
 
   for (let i = 0; i < indexesArr.length; i++) {
-    // if (!mineIndexes.includes(indexesArr[i])) {
     let objIndex = indexesArr[i]
-
-    if (!allIndexValuesObj[objIndex].isMine && !openedIndexes.includes(indexesArr[i])) {
+    
+    if (!allIndexValuesObj[objIndex].isMine && !allIndexValuesObj[objIndex].opened) {
       unopenedArray.push(indexesArr[i])
     }
   }
@@ -132,7 +120,16 @@ function revealAllUnopened () {
   let allUnopenedIndexesArray = []
   
   for (let i = 0; i < levelRules[levelString].cellCount; i++) {
-    if (!openedIndexes.includes(cells[i])) {
+    
+    if (!allIndexValuesObj[i].opened && !allIndexValuesObj[i].hasFlag) {
+      allUnopenedIndexesArray.push(i)
+    } else if ((allIndexValuesObj[i].hasFlag && !allIndexValuesObj[i].isMine)) {
+      cells[i].className = ''
+      cells[i].classList.add('unopened')
+
+      const indexOnIsFlagged = isFlagged.indexOf(i)
+      isFlagged.splice(indexOnIsFlagged, 1)
+
       allUnopenedIndexesArray.push(i)
     }
   }
@@ -163,7 +160,7 @@ function assignMineIndexes(index = -1) {
 
   }
 
-  getAllIndexValues()
+  getAllIndexValues() // Have to all this after defining the mine indexes because cells wont have proper values until then
 }
 
 // Setting and Clearing the Time Interval
@@ -204,7 +201,7 @@ function flagRemainingSquares () {
     for (let i = 0; i < mineIndexes.length; i++) {
       const mineIndex = mineIndexes[i]
 
-      if (!isFlagged.includes(mineIndex)) {
+      if (!allIndexValuesObj[mineIndex].hasFlag) {
   
         cells[mineIndex].className = ''
         cells[mineIndex].classList.add('flagged')
