@@ -197,3 +197,34 @@ function setTimerInterval() {
 
 }
 
+function flagRemainingSquares () {
+  console.log('FLAG REMAINING FIRED')
+
+  if (isFlagged.length > 0) {
+    for (let i = 0; i < mineIndexes.length; i++) {
+      const mineIndex = mineIndexes[i]
+
+      if (!isFlagged.includes(mineIndex)) {
+  
+        cells[mineIndex].className = ''
+        cells[mineIndex].classList.add('flagged')
+        isFlagged.push(mineIndex)
+  
+        minesRemaining.innerHTML = `0`
+      }
+    }
+    
+  } else {
+    for (let i = 0; i < mineIndexes.length; i++) {
+      const mineIndex = mineIndexes[i]
+
+      cells[mineIndex].className = ''
+      cells[mineIndex].classList.add('flagged')
+      isFlagged.push(mineIndex)
+
+      minesRemaining.innerHTML = `0`
+    }
+
+  }
+
+}

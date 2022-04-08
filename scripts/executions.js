@@ -63,6 +63,8 @@ function wonGame() {
   console.log('WON GAME FIRED')
   gameFinished = true
   clearTimerInterval()
+  
+  flagRemainingSquares ()
 
   resetBtn.className = ''
   resetBtn.classList.add('won-game')
