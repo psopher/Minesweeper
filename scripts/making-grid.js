@@ -10,12 +10,14 @@ function assignMineIndexes(index = -1) {
   // Set an incrementor
   let numberOfMinesInArray = 0
 
+  let surroundingIndexes = getSurroundingIndexes(index)
+
   while (numberOfMinesInArray < levelRules[levelString].mineCount) {
     
     // create a random index between zero and number-of-mines-minus-1
     let newIndex = Math.floor(Math.random() * levelRules[levelString].cellCount)
 
-    if (!mineIndexes.includes(newIndex) && newIndex !== index) {
+    if (!mineIndexes.includes(newIndex) && newIndex !== index && !surroundingIndexes.includes(newIndex)) {
       mineIndexes.push(newIndex)
       numberOfMinesInArray++
     }
