@@ -1,15 +1,17 @@
 console.log('Variables Included!')
 
-// Numbers
+// Level Indicators
 let level = 1 // 1 is beginner level, 2 is intermediate, 3 is expert
 let levelString = 'beginner'
+
+// Start Clock at 0 seconds
 let timerStart = 0
 
 // Intervals
 let timerInterval
 
 // Bools
-let gameFinished = false
+let gameFinished = true
 
 // Arrays
 let mineIndexes = []

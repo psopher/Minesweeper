@@ -1,88 +1,5 @@
 console.log('Executions Included!')
 
-
-function createGrid() {
-  console.log('CREATE GRID FIRED')
-  gameFinished = false
-
-  getLevelString()
-  for (let i = 0; i < levelRules[levelString].cellCount; i++) {
-    const cell = document.createElement('div')
-    // Add cell index as the cell id 
-    cell.id = i
-    cell.classList.add('unopened')
-
-    // Add event listeners to cell
-    cell.addEventListener('click', revealSquare) //reveal square on left click
-    cell.addEventListener('contextmenu', flagSquare) //flag square on right click
-
-    // Add this item into the grid container
-    grid.appendChild(cell)
-    // Add the cell to the cells array
-    cells.push(cell)
-  }
-}
-
-
-// Revealing and Flagging Squares 
-
-// Open new square
-function openNewSquare(index = -1) {
-  if (-1 < index < levelRules[levelString].cellCount && !allIndexValuesObj[index].opened && !allIndexValuesObj[index].hasFlag) {  
-    const indexOnObj = allIndexValuesObj[index]
-    indexOnObj.opened = true
-    const indexesSurrounding = indexOnObj.neighborIndexes
-    const unopenSurrounding = unopenedSurroundingIndexes(indexesSurrounding)
-    
-    let minesSurrounding = 0
-
-    cells[index].classList.add(indexOnObj.revealValue)
-
-    openedIndexes.push(index)
-
-    // If value is 0, open all surrounding squares, ad infinitum
-    if (indexOnObj.revealNumber === 0 && unopenSurrounding.length > 0 && !gameFinished) {
-
-      for (let i = 0; i < unopenSurrounding.length; i++) {
-        openNewSquare(unopenSurrounding[i])
-      }
-    } else if (gameFinished) {
-      let allUnopenedArray = revealAllUnopened()
-
-      for (let i = 0; i < allUnopenedArray.length; i++) {
-        openNewSquare(allUnopenedArray[i])
-      }
-    }
-  }
-}
-
-// Won and Lost
-function wonGame() {
-  console.log('WON GAME FIRED')
-  gameFinished = true
-  clearTimerInterval()
-  
-  flagRemainingSquares()
-
-  resetBtn.className = ''
-  resetBtn.classList.add('won-game')
-}
-
-function lostGame() {
-  console.log('LOST GAME FIRED')
-  gameFinished = true
-  clearTimerInterval()
-}
-
-// Start Game
-function startGame(index = -1) {
-  console.log('START GAME FIRED')
-
-  assignMineIndexes(index)
-
-  setTimerInterval()
-}
-
 //Reveal Square click event
 function revealSquare(event) {
   console.log('REVEAL SQUARE FIRED ->', event.target.id)
@@ -107,50 +24,44 @@ function revealSquare(event) {
 
 }
 
+// Flag Square click event
 function flagSquare(event) {
   console.log('FLAG SQUARE FIRED')
-  
-  const index = parseFloat(event.target.id)
 
-  let minesRemainingCount = parseFloat(levelRules[levelString].mineCount - isFlagged.length)
-
-  if (index >= 0 && index < levelRules[levelString].cellCount && !allIndexValuesObj[index].opened && !gameFinished) {
+  if (!gameFinished) { //Cant flag a square before starting game or after finishing game
     
-    cells[index].className = ''
+    const index = parseFloat(event.target.id)
 
-    if (!allIndexValuesObj[index].hasFlag) {  
-      
-      cells[index].classList.add('flagged')
-      isFlagged.push(index)
+    let minesRemainingCount = parseFloat(levelRules[levelString].mineCount - isFlagged.length)
 
-      allIndexValuesObj[index].hasFlag = true
+    if (index >= 0 && index < levelRules[levelString].cellCount && !allIndexValuesObj[index].opened) {
 
-      if (minesRemainingCount > 0) {
-        minesRemainingCount--
-        minesRemaining.innerHTML = `${minesRemainingCount}`
-      }
+      if (!allIndexValuesObj[index].hasFlag) {  
 
-    } else {
-      cells[index].classList.add('unopened')
+        addFlag(index)
 
-      const indexOnIsFlagged = isFlagged.indexOf(index)
-      isFlagged.splice(indexOnIsFlagged, 1)
+        if (minesRemainingCount > 0) {
+          minesRemainingCount--
+          minesRemaining.innerHTML = `${minesRemainingCount}`
+        }
 
-      allIndexValuesObj[index].hasFlag = false
+      } else {
 
-      if (minesRemainingCount < levelRules[levelString].mineCount) {
-        minesRemainingCount++
-        minesRemaining.innerHTML = `${minesRemainingCount}`
+        removeFlag(index)
+
+        if (minesRemainingCount < levelRules[levelString].mineCount) {
+          minesRemainingCount++
+          minesRemaining.innerHTML = `${minesRemainingCount}`
+        }
       }
     }
   }
+  
 }
 
-
-// Handling Buttons Events
+// Set Level click event
 function setLevel(event) {
   console.log('SET LEVEL FIRED')
-  console.log('set level innerHTML',event.target.innerHTML.toLowerCase())
 
   if (levelString !== event.target.innerHTML.toLowerCase()) {
 
@@ -183,6 +94,7 @@ function setLevel(event) {
   }
 }
 
+// Handle Reset click event
 function handleReset() {
   console.log('HANDLE RESET FIRED')
 
@@ -198,7 +110,8 @@ function handleReset() {
   openedIndexes = []
   isFlagged = []
   cells = []
-  gameFinished = false
+  allIndexValuesObj = {}
+  gameFinished = true
   createGrid()
 }
 

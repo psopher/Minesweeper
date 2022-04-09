@@ -1,24 +1,8 @@
-console.log('Snippets Included!')
-
-
-// Code snippet for checking which level it is
-function getLevelString() {
-  console.log('getGridType FIRED')
-  if (level === 1) {
-    levelString = 'beginner'
-  } else if (level === 2) {
-    levelString = 'intermediate'
-  } else if (level === 3) {
-    levelString = 'expert'
-  } else {
-    console.log(`Level: ${level} doesnt exist`)
-  }
-}
+console.log('Getting-Square-Values.js Included!')
 
 
 // Get all index values and populate object
 function getAllIndexValues() {
-
   console.log('GET ALL INDEX VALUES FIRED')
 
   let indexesObj = {}
@@ -48,7 +32,7 @@ function getAllIndexValues() {
       indexObj.revealNumber = -1
     }
 
-    indexObj.neighborIndexes = getSurroundingIndexes(index)
+    indexObj.neighborIndexes = indexesSurrounding
     
     indexObj.opened = false
     indexObj.hasFlag = false
@@ -122,106 +106,16 @@ function revealAllUnopened () {
   for (let i = 0; i < levelRules[levelString].cellCount; i++) {
     
     if (!allIndexValuesObj[i].opened && !allIndexValuesObj[i].hasFlag) {
+      
       allUnopenedIndexesArray.push(i)
+    
     } else if ((allIndexValuesObj[i].hasFlag && !allIndexValuesObj[i].isMine)) {
-      cells[i].className = ''
-      cells[i].classList.add('unopened')
 
-      const indexOnIsFlagged = isFlagged.indexOf(i)
-      isFlagged.splice(indexOnIsFlagged, 1)
+      removeFlag(i)
 
       allUnopenedIndexesArray.push(i)
     }
   }
 
   return allUnopenedIndexesArray
-}
-
-
-// Randomly Assigning Mine Indexes
-function assignMineIndexes(index = -1) {
-  console.log('ASSIGN MINE INDEXES FIRED')
-  
-  // Clear mine indexes array
-  mineIndexes = []
-
-  // Set an incrementor
-  let numberOfMinesInArray = 0
-
-  while (numberOfMinesInArray < levelRules[levelString].mineCount) {
-    
-    // create a random index between zero and number-of-mines-minus-1
-    let newIndex = Math.floor(Math.random() * levelRules[levelString].cellCount)
-
-    if (!mineIndexes.includes(newIndex) && newIndex !== index) {
-      mineIndexes.push(newIndex)
-      numberOfMinesInArray++
-    }
-
-  }
-
-  getAllIndexValues() // Have to all this after defining the mine indexes because cells wont have proper values until then
-}
-
-// Setting and Clearing the Time Interval
-
-function resetTimer () {
-  timerStart = 0
-  timer.innerHTML = timerStart
-}
-
-function clearTimerInterval() {
-  console.log('CLEAR TIMER INTERVAL FIRED')
-  if (timerInterval) {
-    clearInterval(timerInterval)
-  }
-}
-
-
-function setTimerInterval() {
-  console.log('SET TIMER INTERVAL FIRED')
-  
-  function timerCount() {
-    if (0 <= timerStart < 1000) {
-      timerStart++
-      timer.innerHTML = timerStart
-    } else {
-      clearTimerInterval()
-    }  
-  }
-
-  timerInterval = setInterval(timerCount, 1000)
-
-}
-
-function flagRemainingSquares () {
-  console.log('FLAG REMAINING FIRED')
-
-  if (isFlagged.length > 0) {
-    for (let i = 0; i < mineIndexes.length; i++) {
-      const mineIndex = mineIndexes[i]
-
-      if (!allIndexValuesObj[mineIndex].hasFlag) {
-  
-        cells[mineIndex].className = ''
-        cells[mineIndex].classList.add('flagged')
-        isFlagged.push(mineIndex)
-  
-        minesRemaining.innerHTML = `0`
-      }
-    }
-    
-  } else {
-    for (let i = 0; i < mineIndexes.length; i++) {
-      const mineIndex = mineIndexes[i]
-
-      cells[mineIndex].className = ''
-      cells[mineIndex].classList.add('flagged')
-      isFlagged.push(mineIndex)
-
-      minesRemaining.innerHTML = `0`
-    }
-
-  }
-
 }
