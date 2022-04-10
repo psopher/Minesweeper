@@ -6,17 +6,18 @@ function revealSquare(event) {
 
   const selectedIndex = parseFloat(event.target.id)
 
-  if (!openedIndexes.includes(selectedIndex) && !isFlagged.includes(selectedIndex) && !mineIndexes.includes(selectedIndex)) {
-    if (openedIndexes.length === 0) {
-      startGame(selectedIndex)
-    } 
+  if (openedIndexes.length === 0) {
+    startGame(selectedIndex)
 
+  } else if (!openedIndexes.includes(selectedIndex) && !isFlagged.includes(selectedIndex) && !mineIndexes.includes(selectedIndex)) {
+   
     openNewSquare(selectedIndex)
-    
+
     if (openedIndexes.length === levelRules[levelString].cellCount - levelRules[levelString].mineCount) {
       wonGame()
     }
   } else if (!allIndexValuesObj[selectedIndex].opened && !allIndexValuesObj[selectedIndex].hasFlag && allIndexValuesObj[selectedIndex].isMine) {
+
     lostGame()
 
     openNewSquare(selectedIndex)

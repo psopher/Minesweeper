@@ -26,7 +26,7 @@ function startGame(index = -1) {
   
   gameFinished = false
 
-  assignMineIndexes(index)
+  reAssignMineIndexes(index)
 
   setTimerInterval()
 }
