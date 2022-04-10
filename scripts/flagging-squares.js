@@ -12,7 +12,6 @@ function removeFlag(index = -1) {
 
     allIndexValuesObj[index].hasFlag = false
   }
-
 }
 
 function addFlag(index = -1) {

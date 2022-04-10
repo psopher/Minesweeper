@@ -5,7 +5,7 @@ function openNewSquare(index = -1) {
 
   const indexOnObj = allIndexValuesObj[index]
 
-  if (gameFinished && !minesShown) {
+  if (gameFinished && !minesShown && -1 < index < levelRules[levelString].cellCount) {
     let allUnopenedArray = revealAllUnopened()
 
     for (let i = 0; i < allUnopenedArray.length; i++) {
@@ -15,7 +15,7 @@ function openNewSquare(index = -1) {
     }
     minesShown = true
   
-  } else if (-1 < index < levelRules[levelString].cellCount && !allIndexValuesObj[index].opened && !allIndexValuesObj[index].hasFlag) {  
+  } else if (-1 < index < levelRules[levelString].cellCount && !allIndexValuesObj[index].opened && !allIndexValuesObj[index].hasFlag && !minesShown) {  
 
     indexOnObj.opened = true
     
@@ -24,12 +24,9 @@ function openNewSquare(index = -1) {
     const indexesSurrounding = indexOnObj.neighborIndexes
     const unopenSurrounding = unopenedSurroundingIndexes(indexesSurrounding)
 
-    if (!minesShown) {
-      cells[index].classList.add(indexOnObj.revealValue)
-      openedIndexes.push(index)
-    }
+    cells[index].classList.add(indexOnObj.revealValue)
+    openedIndexes.push(index)
     
-
     // If value is 0, open all surrounding squares, ad infinitum
     if (indexOnObj.revealNumber === 0 && unopenSurrounding.length > 0) {
       for (let i = 0; i < unopenSurrounding.length; i++) {

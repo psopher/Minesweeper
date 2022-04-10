@@ -1,7 +1,6 @@
 console.log('Making-Grid.js Included!')
 
 // Randomly Assigning Mine Indexes
-// function assignMineIndexes(index = -1) {
 function assignMineIndexes() {
   console.log('ASSIGN MINE INDEXES FIRED')
   
@@ -11,36 +10,33 @@ function assignMineIndexes() {
   // Set an incrementor
   let numberOfMinesInArray = 0
 
-  // let surroundingIndexes = getSurroundingIndexes(index)
-
   while (numberOfMinesInArray < levelRules[levelString].mineCount) {
-    
     // create a random index between zero and number-of-mines-minus-1
     let newIndex = Math.floor(Math.random() * levelRules[levelString].cellCount)
 
-    // if (!mineIndexes.includes(newIndex) && newIndex !== index && !surroundingIndexes.includes(newIndex)) {
     if (!mineIndexes.includes(newIndex)) {
       mineIndexes.push(newIndex)
       numberOfMinesInArray++
     }
-
   }
 
   getAllIndexValues() // Have to do this after defining the mine indexes because cells wont have proper values until then
 }
 
-function reAssignMineIndexes(index = -1) {
-  
+// Reassign Mine Indexes if the first square selected is not a 0
+// Called in startGame
+function reAssignMineIndexes(index = -1) { 
+  console.log('REASSIGN MINE INDEXES FIRED')
+
   let numberOfMinesInArray = mineIndexes.length
 
   let surroundingIndexes = getSurroundingIndexes(index)
-
-  let indexOnMineIndexes 
   
   if (allIndexValuesObj[index].isMine) {
-    indexOnMineIndexes= mineIndexes.indexOf(index)
-    mineIndexes.splice(indexOnMineIndexes, 1)
+
+    mineIndexes.splice(mineIndexes.indexOf(index), 1)
     numberOfMinesInArray--
+
   }
 
   for (let i = 0; i < surroundingIndexes.length; i++) {
@@ -48,9 +44,7 @@ function reAssignMineIndexes(index = -1) {
 
     if (allIndexValuesObj[indexOnObj].isMine) {
 
-      indexOnMineIndexes = mineIndexes.indexOf(indexOnObj)
       mineIndexes.splice(mineIndexes.indexOf(indexOnObj), 1)
-
       numberOfMinesInArray--
 
     } 
@@ -68,19 +62,20 @@ function reAssignMineIndexes(index = -1) {
       if (!mineIndexes.includes(newIndex) && newIndex !== index && !surroundingIndexes.includes(newIndex)) {
         
         mineIndexes.push(newIndex)
-
         numberOfMinesInArray++
+
       }    
     }
 
     getAllIndexValues() // Have to do this after defining the mine indexes because cells wont have proper values until then
   }
 
-  openNewSquare(index)
+  openNewSquare(index) // Have to call this to start the game
 
 }
 
-
+// Create the Grid
+// Called every time page loads or the reset button is pressed
 function createGrid() {
   console.log('CREATE GRID FIRED')
 
@@ -102,6 +97,5 @@ function createGrid() {
     cells.push(cell)
   }
 
-
-  assignMineIndexes()
+  assignMineIndexes() // Call this after creating the grid
 }

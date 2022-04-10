@@ -27,7 +27,7 @@ function init() {
   for (let i = 0; i < jsFiles.length; i++) {
     setTimeout(function timer() {
       include(jsFiles[i])
-    }, i * 10)
+    }, i * 5)
   }
 
 }

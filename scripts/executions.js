@@ -22,7 +22,6 @@ function revealSquare(event) {
 
     openNewSquare(selectedIndex)
   }
-
 }
 
 // Flag Square click event
@@ -57,7 +56,6 @@ function flagSquare(event) {
       }
     }
   }
-  
 }
 
 // Set Level click event

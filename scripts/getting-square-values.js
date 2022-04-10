@@ -14,6 +14,7 @@ function getAllIndexValues() {
     let indexObj = {}
 
     if (!mineIndexes.includes(index)) {
+
       indexObj.isMine = false
       
       //Check for number of mines surrounding the clicked index
@@ -26,10 +27,13 @@ function getAllIndexValues() {
 
       indexObj.revealValue = `number-${minesSurrounding}`
       indexObj.revealNumber = minesSurrounding
+
     } else {
+
       indexObj.isMine = true
       indexObj.revealValue = 'mine-unopened'
       indexObj.revealNumber = -1
+
     }
 
     indexObj.neighborIndexes = indexesSurrounding
@@ -104,18 +108,6 @@ function revealAllUnopened () {
   let allUnopenedIndexesArray = []
   
   for (let i = 0; i < levelRules[levelString].cellCount; i++) {
-    
-    //Reveals all unopened squares to show the whole grid
-    // if (!allIndexValuesObj[i].opened && !allIndexValuesObj[i].hasFlag) {
-      
-    //   allUnopenedIndexesArray.push(i)
-    
-    // } else if ((allIndexValuesObj[i].hasFlag && !allIndexValuesObj[i].isMine)) {
-
-    //   removeFlag(i)
-
-    //   allUnopenedIndexesArray.push(i)
-    // }
 
     // Reveals all mines but not unopened squares that arent mines
     if (allIndexValuesObj[i].isMine && !allIndexValuesObj[i].hasFlag) {
