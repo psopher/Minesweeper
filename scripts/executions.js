@@ -112,6 +112,7 @@ function handleReset() {
   cells = []
   allIndexValuesObj = {}
   gameFinished = true
+  minesShown = false
   createGrid()
 }
 

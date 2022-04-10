@@ -105,16 +105,25 @@ function revealAllUnopened () {
   
   for (let i = 0; i < levelRules[levelString].cellCount; i++) {
     
-    if (!allIndexValuesObj[i].opened && !allIndexValuesObj[i].hasFlag) {
+    //Reveals all unopened squares to show the whole grid
+    // if (!allIndexValuesObj[i].opened && !allIndexValuesObj[i].hasFlag) {
       
-      allUnopenedIndexesArray.push(i)
+    //   allUnopenedIndexesArray.push(i)
     
-    } else if ((allIndexValuesObj[i].hasFlag && !allIndexValuesObj[i].isMine)) {
+    // } else if ((allIndexValuesObj[i].hasFlag && !allIndexValuesObj[i].isMine)) {
 
-      removeFlag(i)
+    //   removeFlag(i)
 
+    //   allUnopenedIndexesArray.push(i)
+    // }
+
+    // Reveals all mines but not unopened squares that arent mines
+    if (allIndexValuesObj[i].isMine && !allIndexValuesObj[i].hasFlag) {
       allUnopenedIndexesArray.push(i)
+    } else if ((allIndexValuesObj[i].hasFlag && !allIndexValuesObj[i].isMine)) {
+      removeFlag(i)
     }
+
   }
 
   return allUnopenedIndexesArray

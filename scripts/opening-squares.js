@@ -10,13 +10,15 @@ function openNewSquare(index = -1) {
     
     let minesSurrounding = 0
 
-    cells[index].classList.add(indexOnObj.revealValue)
-
-    openedIndexes.push(index)
+    if (!minesShown) {
+      cells[index].classList.add(indexOnObj.revealValue)
+      openedIndexes.push(index)
+    }
+    
 
     // If value is 0, open all surrounding squares, ad infinitum
     if (indexOnObj.revealNumber === 0 && unopenSurrounding.length > 0 && !gameFinished) {
-
+      // console.log('game-finished is ->', gameFinished)
       for (let i = 0; i < unopenSurrounding.length; i++) {
         openNewSquare(unopenSurrounding[i])
       }
@@ -26,6 +28,7 @@ function openNewSquare(index = -1) {
       for (let i = 0; i < allUnopenedArray.length; i++) {
         openNewSquare(allUnopenedArray[i])
       }
+      minesShown = true
     }
   }
 }

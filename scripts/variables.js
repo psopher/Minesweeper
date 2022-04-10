@@ -12,6 +12,7 @@ let timerInterval
 
 // Bools
 let gameFinished = true
+let minesShown = false
 
 // Arrays
 let mineIndexes = []
