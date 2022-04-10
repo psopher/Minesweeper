@@ -5,7 +5,7 @@ function openNewSquare(index = -1) {
 
   const indexOnObj = allIndexValuesObj[index]
 
-  if (gameFinished) {
+  if (gameFinished && !minesShown) {
     let allUnopenedArray = revealAllUnopened()
 
     for (let i = 0; i < allUnopenedArray.length; i++) {
