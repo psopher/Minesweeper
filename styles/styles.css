@@ -178,6 +178,7 @@ main {
 }
 
 .unopened:active {
+  background-image: url('../assets/number-0.png');
   background: #a5a5a5;
 }
 
