@@ -179,6 +179,7 @@ main {
 
 .flagged {
   background-image: url('../assets/flagged.png');
+  /* background: url('https://media.giphy.com/media/A0ux0hPiV7PTpEu58t/giphy.gif'), url('../assets/flagged.png'); */
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -192,7 +193,6 @@ main {
 .mine-unopened {
   /* background-image: url('../assets/mine-unopened.png'); */
   background: url('https://media.giphy.com/media/fX2oud7WOkCyO6jtyv/giphy-downsized-large.gif'), url('../assets/mine-unopened.png');
-  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
