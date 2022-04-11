@@ -15,10 +15,12 @@ h1 {
   margin-bottom: -4px;
   font-size: 24px;
   filter: drop-shadow(8px 8px 10px rgb(145, 145, 145));
+  user-select: none;
 }
 
 h3 {
   width: 70px;
+  user-select: none;
 }
 
 #container {
