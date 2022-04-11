@@ -10,6 +10,7 @@ function openNewSquare(index = -1) {
 
     for (let i = 0; i < allUnopenedArray.length; i++) {
       let indexValue = allUnopenedArray[i]
+      cells[indexValue].className = ''
       cells[indexValue].classList.add(indexOnObj.revealValue)
       openedIndexes.push(indexValue)
     }
