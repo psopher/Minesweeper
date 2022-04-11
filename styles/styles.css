@@ -12,7 +12,7 @@ body {
 }
 
 h1 {
-  margin-bottom: -5px;
+  margin-bottom: -4px;
   font-size: 24px;
   filter: drop-shadow(8px 8px 10px rgb(145, 145, 145));
 }
@@ -24,7 +24,7 @@ h3 {
 #container {
   width: 800px;
   height: 650px;
-  margin-top: 35px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
