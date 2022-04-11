@@ -24,6 +24,7 @@ function openNewSquare(index = -1) {
     const indexesSurrounding = indexOnObj.neighborIndexes
     const unopenSurrounding = unopenedSurroundingIndexes(indexesSurrounding)
 
+    cells[index].className = ''
     cells[index].classList.add(indexOnObj.revealValue)
     openedIndexes.push(index)
     
