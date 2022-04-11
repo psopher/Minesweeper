@@ -113,7 +113,7 @@ function revealAllUnopened () {
     if (allIndexValuesObj[i].isMine && !allIndexValuesObj[i].hasFlag) {
       allUnopenedIndexesArray.push(i)
     } else if ((allIndexValuesObj[i].hasFlag && !allIndexValuesObj[i].isMine)) {
-      removeFlag(i)
+      flagIncorrect(i)
     }
 
   }

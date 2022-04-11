@@ -27,6 +27,18 @@ function addFlag(index = -1) {
   }
 }
 
+function flagIncorrect(index = -1) {
+  console.log('FLAG INCORRECT FIRED')
+
+  if (index >= 0) {
+    cells[index].className = ''
+    cells[index].classList.add('flag-incorrect')
+
+    const indexOnIsFlagged = isFlagged.indexOf(index)
+    isFlagged.splice(indexOnIsFlagged, 1)
+  }
+}
+
 function flagRemainingSquares () {
   console.log('FLAG REMAINING FIRED')
 
