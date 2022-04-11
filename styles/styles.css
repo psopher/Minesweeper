@@ -86,10 +86,11 @@ main {
 }
 
 .not-won {
-  background-image: url('../assets/smiley-face.png');
+  background-image: url('../assets/favicon.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  background-color: #f3f3f3;
 }
 
 .won-game {
