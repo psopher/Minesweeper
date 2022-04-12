@@ -1,11 +1,10 @@
 // Testing
 function init() {
 
-  // ? Link in other script files
-
+  // Array of other script files
   const jsFiles = ['variables', 
                     'elements', 
-                    'timer-snippets', 
+                    'timer', 
                     'getting-square-values', 
                     'making-grid', 
                     'opening-squares', 
@@ -14,6 +13,7 @@ function init() {
                     'executions', 
                     'events']
 
+  // Include the other script files
   function include(filename){
       var head = document.getElementsByTagName('head')[0]
 
@@ -24,6 +24,7 @@ function init() {
       head.appendChild(script)
   }
   
+  // Delay by 5 milli-seconds when including new js files so that the correct files read first
   for (let i = 0; i < jsFiles.length; i++) {
     setTimeout(function timer() {
       include(jsFiles[i])

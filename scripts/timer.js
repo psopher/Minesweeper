@@ -1,4 +1,4 @@
-console.log('Timer-Snippets.js Included!')
+console.log('Timer.js Included!')
 
 
 // Setting and Clearing the Time Interval

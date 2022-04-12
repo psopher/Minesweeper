@@ -1,3 +1,5 @@
+
+/* Resetting defaults */
 * {
   box-sizing: border-box;
 }
@@ -8,9 +10,9 @@ body {
   font-family: 'Orbitron', Arial, sans-serif;
   display: flex;
   justify-content: center;
-  /* background-color: black; */
 }
 
+/* Text */
 h1 {
   margin-bottom: -4px;
   font-size: 24px;
@@ -21,8 +23,15 @@ h1 {
 h3 {
   width: 70px;
   user-select: none;
+  color: red;
+  background-color: black;
+  border-bottom:2px solid #757575;
+  border-right: 2px solid #757575;
+  border-left: 2px solid #fdfcfd;
+  border-top: 2px solid #fdfcfd;
 }
 
+/* Div that contains all elements */
 #container {
   width: 800px;
   height: 650px;
@@ -33,6 +42,7 @@ h3 {
   align-items: center;
 }
 
+/* Contains the scoreboard and the grid */
 main {
   display: flex;
   flex-direction: column;
@@ -46,6 +56,7 @@ main {
   box-shadow: rgba(0, 0, 0, 0.46) 0px 22px 70px 4px;
 }
 
+/* Container for mines remaining, reset button, and timer */
 #scoreboard {
   display: flex;
   align-items: center;
@@ -69,36 +80,26 @@ main {
   width: 35px;
   cursor: pointer;
   border: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   border-bottom:4px solid #757575;
   border-right: 4px solid #757575;
   border-left: 4px solid #fdfcfd;
   border-top: 4px solid #fdfcfd;
 }
 
-#mines-remaining, #timer {
-  color: red;
-  background-color: black;
-  border-bottom:2px solid #757575;
-  border-right: 2px solid #757575;
-  border-left: 2px solid #fdfcfd;
-  border-top: 2px solid #fdfcfd;
-}
-
 .not-won {
   background-image: url('../assets/favicon.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
   background-color: #f3f3f3;
 }
 
 .won-game {
   background-image: url('../assets/sunglasses-face-2.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
 }
 
+
+/* Main grid */
 #grid {
   display: flex;
   align-items: center;
@@ -116,6 +117,7 @@ main {
   width: 750px;
 }
 
+/* Divs inside the grid */
 .beginner-grid div {
   border: 1px solid lightgrey;
   flex-grow: 1;
@@ -132,12 +134,12 @@ main {
 
 .expert-grid div {
   border: 1px solid lightgrey;
-
   flex-grow: 1;
   height: calc(100%/16);
   width: calc(100%/30);
 }
 
+/* Div containing level buttons */
 .levels {
   display: flex;
   justify-content: space-between;
@@ -159,7 +161,6 @@ main {
   border-top: 6px solid #fdfcfd;
   box-shadow: rgba(0, 0, 0, 0.46) 0px 22px 70px 4px;
 }
-
 
 .levels .level-selected{
   color: white;
