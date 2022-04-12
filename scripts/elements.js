@@ -15,7 +15,7 @@ const intermediateBtn = document.querySelector('#intermediate')
 const expertBtn = document.querySelector('#expert')
 
 //HTML Elements
-const scoreboardDiv = document.querySelector('#scoreboard')
+const scoreboardDiv = document.querySelector('#scoreboard') //For changing the scoreboard size when the level changes
 
 
 

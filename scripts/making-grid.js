@@ -1,6 +1,7 @@
 console.log('Making-Grid.js Included!')
 
 // Randomly Assigning Mine Indexes
+// Called in Create Grid
 function assignMineIndexes() {
   console.log('ASSIGN MINE INDEXES FIRED')
   
@@ -24,6 +25,7 @@ function assignMineIndexes() {
 }
 
 // Reassign Mine Indexes if the first square selected is not a 0
+// Only reassigns mines from the selected index and the indexes surrounding it so that the first square will be a zero; not reassigning all mine indexes
 // Called in startGame
 function reAssignMineIndexes(index = -1) { 
   console.log('REASSIGN MINE INDEXES FIRED')
@@ -67,7 +69,7 @@ function reAssignMineIndexes(index = -1) {
       }    
     }
 
-    getAllIndexValues() // Have to do this after defining the mine indexes because cells wont have proper values until then
+    getAllIndexValues() // Have to do this after defining the mine indexes because cell values have now changed
   }
 
   openNewSquare(index) // Have to call this to start the game

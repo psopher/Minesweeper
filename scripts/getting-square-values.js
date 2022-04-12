@@ -15,7 +15,7 @@ function getAllIndexValues() {
     let indexObj = {}
 
     if (!mineIndexes.includes(index)) {
-
+      // If the square is not a mine...
       indexObj.isMine = false
       
       //Check for number of mines surrounding the clicked index
@@ -30,7 +30,7 @@ function getAllIndexValues() {
       indexObj.revealNumber = minesSurrounding
 
     } else {
-
+      // If the square is a mine...
       indexObj.isMine = true
       indexObj.revealValue = 'mine-unopened'
       indexObj.revealNumber = -1
@@ -52,11 +52,15 @@ function getAllIndexValues() {
 
 
 // Getting indexes of the 8, 5, or 3 surrounding squares depending on where the square is in the grid
+// Called in the function above
+// Improves speed to have these values on the big Object
 function getSurroundingIndexes(index = -1) {
+  // local variables for width, height, and cellCount
   const width = levelRules[levelString].width
   const height = levelRules[levelString].height
   const cellCount = levelRules[levelString].cellCount
 
+  // Booleans indicating whether the cell is on an edge
   const isTopRow = index < width && index >= 0 ? true : false
   const isLeftColumn = index % width === 0 ? true : false
   const isRightColumn = index % width === width - 1 ? true : false
@@ -64,6 +68,7 @@ function getSurroundingIndexes(index = -1) {
 
   let indexesArray = []
 
+  // If statements that populate the array with all of the neighboring cell indexes
   if (!isTopRow && !isLeftColumn && !isRightColumn && !isBottomRow) { // Interior Cells
     indexesArray = [index-width-1, index-width, index-width+1, index-1, index+1, index+width-1, index+width, index+width+1]
   } else if (isTopRow && isLeftColumn) { // Top Left Corner
@@ -88,6 +93,7 @@ function getSurroundingIndexes(index = -1) {
 }
 
 // Get unopened surrounding indexes
+// This is called when the value of a cell is zero, so you have to open all the unopened cells around it
 function unopenedSurroundingIndexes (indexesArr = []) {
   
   const unopenedArray = []
@@ -105,7 +111,8 @@ function unopenedSurroundingIndexes (indexesArr = []) {
 }
 
 
-// Reveal all unopened indexes 
+// Reveal all unopened mine indexes 
+// Called after you lose
 function revealAllUnopened () {
   
   let allUnopenedIndexesArray = []

@@ -27,6 +27,7 @@ function addFlag(index = -1) {
   }
 }
 
+// Called after losing if it turns out a square was flagged incorrectly
 function flagIncorrect(index = -1) {
   console.log('FLAG INCORRECT FIRED')
 
@@ -39,6 +40,7 @@ function flagIncorrect(index = -1) {
   }
 }
 
+// Called after winning and some squares with mines in them werent flagged
 function flagRemainingSquares () {
   console.log('FLAG REMAINING FIRED')
 

@@ -21,7 +21,7 @@ let isFlagged = []
 let cells = []
 
 // Objects
-let allIndexValuesObj = {}
+let allIndexValuesObj = {} // The big Object containing all cell information
 
 const levelRules = 
 {

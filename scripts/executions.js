@@ -7,19 +7,22 @@ function revealSquare(event) {
   const selectedIndex = parseFloat(event.target.id)
 
   if (openedIndexes.length === 0) {
+    //If its the first square clicked, then start the game
     startGame(selectedIndex)
 
-  } else if (!openedIndexes.includes(selectedIndex) && !isFlagged.includes(selectedIndex) && !mineIndexes.includes(selectedIndex)) {
-   
+  } else if (!allIndexValuesObj[selectedIndex].opened && !allIndexValuesObj[selectedIndex].hasFlag && !allIndexValuesObj[selectedIndex].isMine) { 
+    //If its not the first square clicked, not already opened, not flagged, and not a mine, then open the square
     openNewSquare(selectedIndex)
 
     if (openedIndexes.length === levelRules[levelString].cellCount - levelRules[levelString].mineCount) {
+      //If the number of opened indexes equals cellCount minus mineCount, you won
       wonGame()
     }
   } else if (!allIndexValuesObj[selectedIndex].opened && !allIndexValuesObj[selectedIndex].hasFlag && allIndexValuesObj[selectedIndex].isMine) {
-
+    //If you clicked on a mine, you lost
     lostGame()
 
+    //Open all mine squares to show the grid after losing
     openNewSquare(selectedIndex)
   }
 }
@@ -37,7 +40,7 @@ function flagSquare(event) {
     if (index >= 0 && index < levelRules[levelString].cellCount && !allIndexValuesObj[index].opened) {
 
       if (!allIndexValuesObj[index].hasFlag) {  
-
+        //if square is not flagged, then add a flag
         addFlag(index)
 
         if (minesRemainingCount > 0) {
@@ -46,7 +49,7 @@ function flagSquare(event) {
         }
 
       } else {
-
+        //if square is flagged, then remove the flag
         removeFlag(index)
 
         if (minesRemainingCount < levelRules[levelString].mineCount) {
