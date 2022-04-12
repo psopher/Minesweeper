@@ -107,24 +107,40 @@ for (let i = 0; i < jsFiles.length; i++) {
   - first checks to see if the game is finished and if the mines have all shown. If the game is over but the mines have not shown, it calls the revealAllUnopened() function to get the indexes of all the mines and reveal them.
   - If the game is not finished, if there is not a flag on the square, and if the square is not a mine, the square value is revealed for the selected square, and, if the value is 0, then all neighboring squares are opened
 * Winning and Losing
-  - If a mine is selected, the revealSquare() method tells the lose game
+  - If a mine is selected, the revealSquare() method tells the lose game.
+    - the gameFinished boolean is changed to true, the timer interval is cleared, and all mines are shown except for on correctly flagged squares. Incorrectly flagged squares are marked by a flag covered with a blue X
+  - If the number of opened cells equals the total cell count minus the number of mines, then the wonGame fires fires
+    - the gameFinished boolean is changed to true, the timer interval is cleared, all unflagged mines are given flags, and the smiley-face Emoji on the reset-button is changed to a sunglasses-face Emoji
+  - the wonGame and lostGame grids remain until either the reset button is pressed or the level is changed, after which the handleReset function fires
+    - the handleReset function clears all arrays and objects that need to be cleared, resets the booleans that need to be reset, and fires createGrid again, which creates a new set of cells and then calls assignMineIndexes, which creates a new array of randomly generated mine indexes
 
 ---
 ### Screenshots
 ---
+![start of game](notes/screenshot-start-game.png)
+![lost game](notes/screenshot-lost-game.png)
+![won game](notes/screenshot-won-game.png)
 
 ---
 ### Challenges
 ---
+The biggest challenge was making the game run fast enough to be played in real time on the expert level. Initially my code was full of .includes array methods, which, when iterating over 480 cells, requires a lot of computation power (and therefore time). I solved this problem by storing as much information as possible on the allIndexValuesObj global Object variable.
+
+The other big challenge was keeping my code organized amidst all of the various functions and particular logic flying about. In the end, I had 10 .js files that were called in by the include method in the app.js file. The larger number of files, each named semantically, meant that there were never more than 200 lines of code in any of the files, and, in most of them, there were fewer than 50 lines of code, making it easier to keep track of what was happening where.
 
 ---
 ### Wins
 ---
+Honestly, I think this whole project is a win. It looks great, it functions well, it's robust, and it's efficient. Considering this was my first comprehensive JavaScript assignment, my confidence is definitely higher than it was before starting.
 
 ---
 ### Learning
 ---
+There was quite a bit of learning in the nitty-gritty of coding. The biggest I learned was that it's important to organize JavaScript files in an intuitive way. Before the project I didn't envision how my code would be organized across different files, but on ensuing projects, this will be something consider at the very beginning
 
 ---
 ### Ideas for Future Improvements
 ---
+This game functions exactly the way Minesweeper functions across the world, and it has a better-looking interface and runs quickly too. You could add some pizzazz to it if you're looking to be creative, but I'm a purest! I grew up and fell in love with classic Minesweeper, so I don't want to change it!
+
+If you're going to nitpick, the setLevel function is not as DRY as it could be. So, if you're reading this, help me out! Make it better and send me your solution!
