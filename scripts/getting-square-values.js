@@ -1,12 +1,13 @@
 console.log('Getting-Square-Values.js Included!')
 
 
-// Get all index values and populate object
+// Get all index values and populate big Object
 function getAllIndexValues() {
   console.log('GET ALL INDEX VALUES FIRED')
 
   let indexesObj = {}
 
+  // Loop through every cell in grid and figure out how many mines are surrounding each cell
   for (let index = 0; index < levelRules[levelString].cellCount; index++) {
     
     const indexesSurrounding = getSurroundingIndexes(index)
@@ -45,11 +46,12 @@ function getAllIndexValues() {
 
   }
 
+  // Set the global variable equal to the local variable
   allIndexValuesObj = indexesObj
 }
 
 
-// Getting indexes of the 8 surrounding squares
+// Getting indexes of the 8, 5, or 3 surrounding squares depending on where the square is in the grid
 function getSurroundingIndexes(index = -1) {
   const width = levelRules[levelString].width
   const height = levelRules[levelString].height
@@ -98,6 +100,7 @@ function unopenedSurroundingIndexes (indexesArr = []) {
     }
   }
 
+  // Returns an array of cells that should be opened when a 0 is pressed
   return unopenedArray
 }
 
