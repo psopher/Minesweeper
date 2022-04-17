@@ -4,7 +4,7 @@ console.log('Events Included!')
 window.addEventListener('contextmenu', e => e.preventDefault());
 
 // Button events
-resetBtn.addEventListener('click', handleReset)
-beginnerBtn.addEventListener('click', setLevel)
-intermediateBtn.addEventListener('click', setLevel)
-expertBtn.addEventListener('click', setLevel)
+// resetBtn.addEventListener('click', handleReset)
+// beginnerBtn.addEventListener('click', setLevel)
+// intermediateBtn.addEventListener('click', setLevel)
+// expertBtn.addEventListener('click', setLevel)
