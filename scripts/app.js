@@ -1,5 +1,5 @@
 // Testing
-function init() {
+function init () {
 
   // Array of other script files
   const jsFiles = ['variables', 
@@ -15,14 +15,14 @@ function init() {
                     'default-settings']
 
   // Include the other script files
-  function include(filename){
-      var head = document.getElementsByTagName('head')[0]
+  const include = async (filename) => {
+      var head = await document.getElementsByTagName('head')[0]
 
-      var script = document.createElement('script')
+      var script = await document.createElement('script')
       script.src = `scripts/${filename}.js`
       script.type = 'text/javascript'
 
-      head.appendChild(script)
+      await head.appendChild(script)
   }
   
   // Delay by 5 milli-seconds when including new js files so that the correct files read first
@@ -31,6 +31,19 @@ function init() {
       include(jsFiles[i])
     }, i * 10)
   }
+
+  // await include('variables')
+  // await include('elements')
+  // await include('timer')
+  // await include('getting-square-values')
+  // await include('making-grid')
+  // await include('opening-squares')
+  // await include('win-lose-start-game')
+  // await include('flagging-squares')
+  // await include('executions')
+  // await include('events')
+  // await include('default-settings')
+
 
 }
 
