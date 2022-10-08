@@ -6,6 +6,15 @@ function openNewSquare(index = -1) {
   const indexOnObj = allIndexValuesObj[index]
 
   if (gameFinished && !minesShown && -1 < index < levelRules[levelString].cellCount) {
+    
+    
+    // Setting the that was clicked to the mine-opened class
+    indexOnObj.isMine = false
+    indexOnObj.opened = true
+    cells[index].className = ''
+    cells[index].classList.add('mine-opened')
+    openedIndexes.push(index)
+
     //Revealing all mine squares after the game is lost
     let allUnopenedArray = revealAllUnopened()
 
@@ -15,6 +24,7 @@ function openNewSquare(index = -1) {
       cells[indexValue].classList.add(indexOnObj.revealValue)
       openedIndexes.push(indexValue)
     }
+    
 
     //Setting this to true so that this method only fires once, since mines are now revealed
     minesShown = true

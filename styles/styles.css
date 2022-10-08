@@ -203,6 +203,16 @@ main {
   background-color: red;
 }
 
+.mine-opened {
+  /* background-image: url('../assets/mine-unopened.png'); */
+  background: url('https://media.giphy.com/media/3oz8xDp5mAEOAZXEPe/giphy.gif'), url('../assets/mine-unopened.png');
+  /* background: url('https://media.giphy.com/media/oe33xf3B50fsc/giphy.gif'), url('../assets/mine-unopened.png'); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: red;
+}
+
 .number-0 {
   background-image: url('../assets/number-0.png');
   background-repeat: no-repeat;
